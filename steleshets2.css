@@ -1,0 +1,30 @@
+h1{
+    color: red;
+    text-align: center;
+}
+h2 {
+    color: green;
+}
+
+i {
+    color: blue;
+}
+ol{
+    color: red;
+}
+ul{
+    font-style: italic;
+    color: goldenrod;
+}
+b {
+    color: red;
+}
+
+p {
+    width: 500px;
+    text-align: justify;
+}
+
+li {
+    width: 500px;
+}
