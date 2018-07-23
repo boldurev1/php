@@ -1,61 +1,60 @@
 <?php
-     error_reporting(E_ALL );
-     ini_set( 'display_errors', true );
-   $result = null;
-   $operand1 = null;
-   $operand2 = null;
-   $operator = '+';
-
-   if (isset($_REQUEST['operator'])) {
-       $operand1=$_REQUEST['operand1'];
-       $operator=$_REQUEST['operator'];
-       $operand2=$_REQUEST['operand2'];
-
-       switch ($_REQUEST['operator']){
-           case '+': $result = $operand1 + $operand2; break;
-           case '-': $result = $operand1 - $operand2; break;
-           case '*': $result = $operand1 * $operand2; break;
-           case '/':
-               if ($operand2 == 0){
-                   $result = 'Делить на ноль нельзя';
-               }
-                   else {
-                   $result = $operand1 / $operand2;
-                   }
-
-                   break;
-
-       }
-   }
-
-   function printOptions ($options, $value) {
-       foreach ($options as $option) {
-           if ($option == $value) {
-
-           } else {
-               $selected = '';
-           }
-
-           echo '<option ' . $selected . '>' . $option . '</option>';
-       }
-   }
+include  __DIR__ . '/actions.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        label {
+            display: block;
+            position: relative;
+            line-height: 1.7em;
+        }
+
+        label input {
+            display: block;
+            position: absolute;
+            left: 100px;
+            top: 0;
+            border: 1px solid gray;
+        }
+
+        label p.error {
+            margin-left: 100px;
+            color: red;
+        }
+    </style>
 </head>
 <body>
-<form>
-    <input type="number" name="operand1"value="<?php echo $operand1 ?>">
-    <select name="operator">
-        <?php printOptions(['+','-','*','/'], $operator) ?>
-    </select>
-    <input type="number" name="operand2" value="<?=$operand2 ?>">
-    <button type="submit">=</button>
-    <b><?php echo $result ?></b>
+<h1>Register</h1>
+<form method="get">
+    <label>
+        Name:
+        <input name="First_name" value="<?= getValue('First_name') ?>">
+       <?= getError('First_name') ?>
+    </label>
+
+    <label>
+        Famely:
+        <input name="Last_name" value="<?= getValue('Last_name') ?>">
+        <?= getError('Last_name') ?>
+    </label>
+
+    <label>
+        Email:
+        <input name="Email" value="<?= getValue('Email') ?>">
+        <?= getError('Email') ?>
+    </label>
+
+    <label>
+        Password:
+        <input name="Password" value="">
+        <?= getError('Password') ?>
+    </label>
+
+    <button type="submit">Register</button>
 </form>
 </body>
 </html>
-
