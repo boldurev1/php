@@ -29,32 +29,11 @@ include  __DIR__ . '/actions.php';
 </head>
 <body>
 <h1>Register</h1>
-<form method="get">
-    <label>
-        Name:
-        <input name="First_name" value="<?= getValue('First_name') ?>">
-       <?= getError('First_name') ?>
-    </label>
+<?= $form->renderBegin() ?>
+  <?= $form->renderFields()?>
 
-    <label>
-        Famely:
-        <input name="Last_name" value="<?= getValue('Last_name') ?>">
-        <?= getError('Last_name') ?>
-    </label>
+<button type="submit">Register</button>
 
-    <label>
-        Email:
-        <input name="Email" value="<?= getValue('Email') ?>">
-        <?= getError('Email') ?>
-    </label>
-
-    <label>
-        Password:
-        <input name="Password" value="">
-        <?= getError('Password') ?>
-    </label>
-
-    <button type="submit">Register</button>
-</form>
+<?= $form->renderEnd() ?>
 </body>
 </html>

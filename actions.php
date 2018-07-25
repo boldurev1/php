@@ -1,29 +1,34 @@
 <?php
+
+require_once __DIR__ . '/classes/form.php';
+require_once __DIR__ . '/classes/EmailFormField.php';
+require_once __DIR__ . '/classes/PasswordFormField.php';
+
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
 define( 'USER_FILENAME', __DIR__ . '/user.txt');
 
-$errors = [];
-$data = [];
 
-if ($_SERVER['REQUEST_METHOD']=='GET') {
+$form = new Form('post');
+$form->addField(new FormField('Name', 'first_name'));
+$form->addField(new FormField('Famely', 'last_name'));
+$form->addField(new FormField('Email', 'email'));
+$form->addField(new FormField('Password', 'password'));
+
+
+
+if ($_SERVER['REQUEST_METHOD']=='POST') {
     processRequest ();
 }
 
 function processRequest()
 {
-    global $errors, $data;
+    global $form;
 
-    $fields = ['First_name', 'Last_name', 'Email', 'Password'];
+    $IsValid = $form->processRequest();
 
-    foreach ($fields as $field) {
-        if (empty($_GET[$field])) {
-            $errors[$field] = 'Значение не может быть пустым';
-        }
 
-        $data[$field] = isset($_GET[$field]) ? $_GET[$field] : '';
-    }
     if (mb_strpos($data['Email'], '@') === false) {
         $errors['Email'] = 'Email должен содержать символ @';
     }
@@ -45,21 +50,3 @@ function processRequest()
         fclose($file);
     }
 
-
-function getError($field)
-{
-    global $errors;
-
-    if (!empty($errors[$field])) {
-        return '<p class="error">' . $errors[$field] . '</p>';
-    }
-
-    return '';
-}
-
-function getValue($field)
-{
-    global $data;
-
-    return isset($data[$field]) ? $data[$field] : '';
-}
